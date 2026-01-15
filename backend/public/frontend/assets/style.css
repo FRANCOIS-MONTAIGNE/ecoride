@@ -1,0 +1,1382 @@
+/* ============ RESET & LAYOUT GLOBAL ============ */
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: #222;
+  background: linear-gradient(135deg, #10a024 0%, #429c73 50%, #01b867 100%);
+  background-attachment: fixed;
+}
+
+main { flex: 1; }
+
+h1 { text-align: center; margin-top: 24px; }
+h2 { margin: 24px 0 8px 4px; }
+
+/* ============ HEADER (NAV) ============ */
+header.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  height: 80px;
+  padding: 0 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+header.nav .logo img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+header.nav nav {
+  display: flex;
+  gap: 24px;
+}
+
+header.nav nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.05rem;
+  transition: color .2s ease, transform .15s ease;
+}
+
+header.nav nav a:hover {
+  color: #1c7d4b;
+  transform: translateY(-1px);
+}
+
+header.nav nav a[data-active] {
+  color: #65e6a0;
+  font-weight: 600;
+}
+
+/* ============ CONTAINERS ============ */
+.container {
+  max-width: 1100px;
+  margin: 24px auto 40px;
+  padding: 0 16px;
+}
+
+/* ============ HERO ============ */
+.hero {
+  max-width: 1100px;
+  margin: 32px auto 16px;
+  padding: 0 16px;
+}
+
+.hero-text {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.hero-text h1 {
+  margin: 0 0 8px;
+}
+
+/* ============ GRIDS & CARDS ============ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin: 16px 0;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid #eee;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+
+/* ============ FORMS (général) ============ */
+.search,
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.search.small {
+  flex-direction: column;
+  width: 280px;
+  gap: 14px;
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label { font-weight: 500; color: #333; }
+
+input {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  background: #fff;
+}
+
+input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.2);
+}
+
+button {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: none;
+  background: #10b981;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+button:hover {
+  background: #0b9f6f;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0,0,0,.15);
+}
+
+button.secondary {
+  background: #138961;
+}
+
+/* boutons désactivés */
+button:disabled,
+button[disabled] {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.msg { color: #555; margin-top: 4px; }
+
+/* ============ SIMPLE TRIP CARD (fallback index) ============ */
+.trip {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trip h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.price { font-weight: 700; }
+
+/* ============ LAYOUT TRIPS (image + form) ============ */
+.covoiturage-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 140px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.col-left img {
+  max-width: 340px;
+  height: auto;
+  display: block;
+}
+
+.col-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ============ OPTIONS (formulaire) ============ */
+fieldset.options {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  width: 100%;
+  padding: 18px 16px 12px;
+  margin: 6px 0 0;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #d2d8dd;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+}
+
+/* Titre "Options du trajet" en mode petit badge */
+fieldset.options legend {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  padding: 0 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2a3b3b;
+  background: linear-gradient(135deg, #f7fff9, #ffffff);
+  border-radius: 999px;
+  border: 1px solid #d2d8dd;
+}
+
+/* Chaque option = ligne compacte */
+fieldset.options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  color: #222;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+/* Cases à cocher */
+fieldset.options input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #10b981;
+}
+
+/* ============ FILTRES AVANCÉS ============ */
+.filters-advanced {
+  margin-top: 12px;
+  padding: 18px 16px 14px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #d2d8dd;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 12px 18px;
+}
+
+.filters-advanced-title {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #2a3b3b;
+}
+
+.filters-advanced .field {
+  margin: 0;
+}
+
+/* ============ TRIP CARD (template trips.html) ============ */
+.trip-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.trip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  border-color: rgba(16,185,129,.4);
+}
+
+.trip-card header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trip-card .route {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.trip-card .date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.trip-card .driver {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.trip-card .price {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0a8f5e;
+  margin: 4px 0;
+}
+
+.trip-card .trip-options {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.trip-card .trip-options span {
+  white-space: nowrap;
+}
+
+.trip-card .car-line {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* actions (Détail / Réserver / Annuler) */
+.trip-card .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.trip-card .actions button {
+  min-width: 110px;
+}
+
+.trip-card .actions .cancel-trip-btn {
+  background: #f97373;
+}
+
+.trip-card .actions .cancel-trip-btn:hover {
+  background: #ef4444;
+}
+
+/* Sur la carte, on n'affiche plus les infos détaillées */
+.trip-card .driver,
+.trip-card .passengers,
+.trip-card .seats-line,
+.trip-card .car-line {
+  display: none;
+}
+
+/* Badge Eco (sur carte + modale) */
+.eco-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e0fbe5;
+  color: #065f46;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Carte quand aucun trajet trouvé */
+.card.no-results {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  color: #0b5345;
+}
+
+/* Trajet complet */
+.trip-full {
+  border: 2px solid #f4b042;
+  box-shadow: 0 0 0 1px #fce3b5;
+}
+
+/* Trajet annulé */
+.trip-canceled {
+  border: 2px solid #e74c3c;
+  opacity: 0.6;
+  position: relative;
+}
+
+.trip-canceled::before {
+  content: "Trajet annulé";
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e74c3c;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* ============ MESSAGE sous la liste de trajets ============ */
+#tripsMessage.info {
+  max-width: 420px;
+  margin: 1.5rem auto 0;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: #ffffffdd;
+  color: #333;
+  font-size: 0.9rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* Liste des trajets centrée */
+#tripsList.grid {
+  max-width: 900px;
+  margin: 1.5rem auto 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+/* Petit style pour la phrase d’info sur la page d’accueil */
+.notice {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #145a32;
+}
+
+/* ============ AUTH PAGE ============ */
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+  padding: 40px 16px;
+  gap: 24px;
+}
+
+.auth h1 {
+  text-align: center;
+  margin: 0;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.auth .card.form {
+  background: #66e38f;
+  padding: 32px 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  max-width: 460px;
+  width: 100%;
+}
+
+.auth label {
+  text-align: left;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #064b2f;
+}
+
+.auth input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.auth button {
+  width: 100%;
+  height: 42px;
+  border-radius: 8px;
+  background: #0cb373;
+}
+
+.auth button:hover {
+  background: #0a925e;
+}
+
+.auth .alt-link {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #064b2f;
+}
+
+.auth .alt-link a {
+  color: #064b2f;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth .alt-link a:hover {
+  text-decoration: underline;
+}
+
+/* ============ CHECKBOX GENERIQUE ============ */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ============ ACCESSIBILITÉ ============ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============ MODALE DÉTAIL TRAJET ============ */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none; /* Cachée par défaut */
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.modal-dialog {
+  position: relative;
+  z-index: 10;
+  background: #fff;
+  width: 90%;
+  max-width: 480px;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.25);
+}
+
+/* Bouton de fermeture */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: #eee;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.modal-close:hover {
+  background: #ddd;
+}
+
+/* Mise en forme interne du détail de trajet */
+.trip-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.trip-detail-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.trip-detail-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.trip-detail-date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.trip-detail-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.trip-detail-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.trip-detail-value {
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.trip-detail-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+}
+
+.trip-detail-list li + li {
+  margin-top: 2px;
+}
+
+/* ===================== PAGE PROPOSER UN TRAJET ===================== */
+.create-trip h1 {
+  margin-top: 32px;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 2rem;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.create-trip-subtitle {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 20px;
+  color: #e5f9ec;
+  font-size: 0.96rem;
+}
+
+/* Stepper 1–2–3 */
+.create-trip .stepper {
+  position: relative;
+  max-width: 620px;
+  margin: 0 auto 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-trip .stepper-track {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 50%;
+  height: 2px;
+  background: #e5e7eb;
+  z-index: 0;
+}
+
+.create-trip .stepper-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.create-trip .stepper-index {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid #d1d5db;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.create-trip .stepper-step.active .stepper-index {
+  border-color: #10b981;
+  background: #10b981;
+  color: #ffffff;
+}
+
+.create-trip .stepper-step.done .stepper-index {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.create-trip .stepper-step.active .stepper-label {
+  color: #065f46;
+  font-weight: 600;
+}
+
+/* Carte du formulaire */
+.create-trip .card.form.two {
+  max-width: 980px;
+  margin: 0 auto 48px;
+  padding: 28px 32px 32px;
+  border-radius: 20px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+  background: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 24px;
+}
+
+/* Sections */
+.create-trip .section-title {
+  grid-column: 1 / -1;
+  margin: 8px 0 4px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #064e3b;
+}
+
+/* Champs de base */
+.create-trip .field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.create-trip .field.full-line,
+.create-trip .checkbox.full-line,
+.create-trip fieldset.options.full-line,
+.create-trip #createMsg,
+.create-trip .card.form.two > button,
+.create-trip .recap-card {
+  grid-column: 1 / -1;
+}
+
+.create-trip .field label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #145a32;
+}
+
+.create-trip input,
+.create-trip select,
+.create-trip textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+}
+
+/* Icônes dans les champs */
+.create-trip .field[class*="icon-"] input,
+.create-trip .field[class*="icon-"] textarea,
+.create-trip .field[class*="icon-"] select {
+  padding-left: 32px;
+}
+
+.create-trip .field[class*="icon-"]::before {
+  position: absolute;
+  left: 10px;
+  top: 30px;
+  font-size: 1rem;
+  opacity: 0.75;
+  pointer-events: none;
+  content: "";
+}
+
+.create-trip .field.icon-city::before { content: "📍"; }
+.create-trip .field.icon-datetime::before { content: "🕒"; }
+.create-trip .field.icon-price::before { content: "💶"; }
+.create-trip .field.icon-car::before { content: "🚗"; }
+.create-trip .field.icon-note::before { content: "📝"; }
+
+/* Textarea */
+.create-trip textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+/* Fieldset / options */
+.create-trip fieldset.options {
+  background: #f9fafb;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 18px 16px 12px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 20px;
+}
+
+.create-trip fieldset.options legend {
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  padding: 0 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #065f46;
+  background: #ffffff;
+  border-radius: 999px;
+  border: 1px solid #d1fae5;
+}
+
+/* Bloc Conducteur / Passager sur toute la largeur */
+.create-trip fieldset.options.role-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 50% / 50% */
+  gap: 14px;
+  width: 100%;
+  padding: 12px 10px 16px;
+}
+
+/* Boutons plus petits mais étirés en largeur */
+.create-trip fieldset.options.role-selector .checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;        /* texte centré */
+  gap: 6px;
+
+  padding: 8px 0;                 /* hauteur réduite */
+  font-size: 0.85rem;
+
+  background: #f4fdf7;
+  border-radius: 12px;
+  border: 1px solid #cde8d6;
+
+  transition: background .15s ease, color .15s ease,
+              border-color .2s ease, transform .1s ease;
+  cursor: pointer;
+}
+
+/* Petits boutons radio */
+.create-trip fieldset.options.role-selector input[type="radio"] {
+  transform: scale(0.85);
+}
+
+/* État sélectionné : version plus visible */
+.create-trip fieldset.options.role-selector input[type="radio"]:checked + span {
+  font-weight: 600;
+  color: #065f46;
+}
+
+.create-trip fieldset.options.role-selector input[type="radio"]:checked + span,
+.create-trip fieldset.options.role-selector input[type="radio"]:checked {
+  /* effet sélection */
+}
+
+.create-trip fieldset.options.role-selector .checkbox:has(input[type="radio"]:checked) {
+  background: #e0fbe5;
+  border-color: #65e6a0;
+  transform: translateY(-1px);
+}
+
+
+/* Checkbox "Trajet éco"  */
+.create-trip .checkbox-eco {
+  font-size: 0.8rem;       
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-trip .checkbox-eco input[type="checkbox"] {
+  width: 14px;
+  height: 14px;            
+}
+
+
+/* Préférences du conducteur : grille 2 colonnes */
+.create-trip fieldset.options:last-of-type {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 20px;
+}
+
+/* Bouton principal */
+.create-trip button[type="submit"] {
+  margin-top: 12px;
+  justify-self: center;
+  padding-inline: 32px;
+  font-size: 1rem;
+}
+
+/* Message sous le bouton */
+.create-trip #createMsg {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Carte de récapitulatif */
+.create-trip .recap-card {
+  margin-top: 8px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  font-size: 0.9rem;
+  color: #064e3b;
+}
+
+.create-trip .recap-card h3 {
+  margin: 0 0 6px;
+  font-size: 0.96rem;
+}
+
+.create-trip .recap-line {
+  margin: 2px 0;
+  display: flex;
+  gap: 4px;
+}
+
+.create-trip .recap-label {
+  font-weight: 600;
+}
+
+/* ================== MES TRAJETS ================== */
+
+.mytrip-card {
+  max-width: 540px;
+  margin: 0 auto 16px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mytrip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.mytrip-route {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.mytrip-route .arrow {
+  margin: 0 4px;
+  opacity: 0.8;
+}
+
+.mytrip-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mytrip-role-badge,
+.mytrip-status-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mytrip-role-badge {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.mytrip-status-badge.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.mytrip-status-badge.canceled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.mytrip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.mytrip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mytrip-icon {
+  width: 18px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.mytrip-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.mytrip-price .price {
+  font-weight: 700;
+  color: #047857;
+  font-size: 1rem;
+}
+
+.mytrip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.mytrip-actions .secondary {
+  height: 34px;
+  padding-inline: 14px;
+  font-size: 0.85rem;
+}
+
+/* état visuel pour les trajets annulés */
+.mytrip-card.trip-canceled {
+  border-color: #fecaca;
+  background: #fff1f2;
+}
+
+.mytrip-card.trip-canceled .price {
+  color: #b91c1c;
+}
+
+/* Admin link : caché par défaut (ROBUSTE) */
+header.nav.enhanced-nav nav.menu a#adminLink {
+  display: none !important;
+}
+
+/* Visible seulement si admin */
+body.is-admin header.nav.enhanced-nav nav.menu a#adminLink {
+  display: inline-block !important;
+}
+
+/* ===================== NAV MODERNE ===================== */
+
+.enhanced-nav {
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.enhanced-nav .nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 80px;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.enhanced-nav .logo img {
+  height: 55px;
+  transition: transform .2s ease;
+}
+
+.enhanced-nav .logo img:hover {
+  transform: scale(1.05);
+}
+
+.enhanced-nav .menu {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.enhanced-nav .menu a {
+  text-decoration: none;
+  color: #145a32;
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background .25s ease, color .25s ease, transform .15s ease;
+}
+
+/* Survol */
+.enhanced-nav .menu a:hover {
+  background: #e7fbe9;
+  color: #0c7a3b;
+  transform: translateY(-2px);
+}
+
+/* Lien actif Admin */
+.enhanced-nav .menu .active-admin {
+  background: #10b981;
+  color: white;
+  font-weight: 600;
+}
+
+.enhanced-nav .menu .active-admin:hover {
+  background: #0a8f5e;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+  .enhanced-nav .nav-content {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .enhanced-nav .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+}
+
+/* =========================
+   CONTACT (comme Accueil)
+========================= */
+
+/* Fond vert dégradé */
+.hero.hero-contact {
+  min-height: calc(100vh - 90px);
+  padding: 60px 16px 80px;
+  background: linear-gradient(
+    180deg,
+    #1f9a4a 0%,
+    #2f8f67 60%,
+    #2b6f57 100%
+  );
+}
+
+/* Conteneur centré */
+.hero.hero-contact .hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Titre */
+.hero.hero-contact .hero-title {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #0b1b14;
+  margin: 10px 0 12px;
+}
+
+/* Sous-titre */
+.hero.hero-contact .hero-subtitle {
+  font-size: 1.05rem;
+  color: rgba(11, 27, 20, 0.85);
+  margin: 0 0 30px;
+}
+
+/* Carte blanche */
+.hero.hero-contact .contact-card {
+  width: min(560px, 100%);
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 24px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+  text-align: left;
+}
+
+/* Force mise en colonne (neutralise flex global) */
+.hero.hero-contact form.contact-form-ecoride {
+  display: block !important;
+  width: 100%;
+}
+
+/* Champs */
+.hero.hero-contact .field {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* Labels */
+.hero.hero-contact label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Inputs & textarea */
+.hero.hero-contact input,
+.hero.hero-contact textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* ⭐ Message PLUS GRAND */
+.hero.hero-contact textarea#message {
+  min-height: 240px;   /* espace confortable */
+  resize: vertical;
+}
+
+/* Focus */
+.hero.hero-contact input:focus,
+.hero.hero-contact textarea:focus {
+  outline: none;
+  border-color: #2f7d6d;
+  box-shadow: 0 0 0 3px rgba(47, 125, 109, 0.18);
+}
+
+/* Bouton */
+.hero.hero-contact .btn-primary {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #2f7d6d;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hero.hero-contact .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+/* Infos contact */
+.hero.hero-contact .contact-info {
+  margin-top: 18px;
+  text-align: center;
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Compteur caractères */
+.hero.hero-contact .char-counter {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: right;
+}
+
+/* Message succès / erreur */
+.hero.hero-contact .form-msg {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  display: none;
+}
+
+.hero.hero-contact .form-msg.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #065f46;
+}
+
+.hero.hero-contact .form-msg.error {
+  display: block;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #991b1b;
+}
+
+
+
+
+
+/* ============ FOOTER ============ */
+footer {
+  margin-top: auto;
+  padding: 16px;
+  text-align: center;
+  background: linear-gradient(120deg, #044825 0%, #146f23 50%, #34563c 100%);
+  color: #e9ffe9;
+  font-size: 0.9rem;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .covoiturage-row { gap: 40px; }
+  .filters-advanced {
+    grid-template-columns: 1fr;
+  }
+
+  .create-trip .card.form.two {
+    grid-template-columns: 1fr;
+    padding: 20px 18px 24px;
+  }
+
+  .create-trip .stepper {
+    max-width: 100%;
+  }
+
+  .create-trip .stepper-label {
+    display: none;
+  }
+
+  .create-trip .section-title {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search.small { width: 100%; max-width: 320px; }
+  .auth .card.form { padding: 24px; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-container {
+    margin: 40px 15px;
+    padding: 25px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero.hero-contact .hero-title {
+    font-size: 2.1rem;
+  }
+  .hero.hero-contact .contact-card {
+    padding: 22px 18px;
+  }
+}
+
+
+/* 🔐 Sécurité Admin - PRIORITÉ MAX */
+#adminLink {
+  display: none !important;
+}
+
+body.is-admin #adminLink {
+  display: inline-block !important;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>EcoRide — Contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/contact.js"></script>
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="nav enhanced-nav">
+    <div class="nav-content">
+      <a href="index.html" class="logo" aria-label="Accueil EcoRide">
+        <img src="assets/image/logoEcoRide.png" alt="Logo EcoRide" />
+      </a>
+
+      <nav class="menu">
+        <a href="index.html">Accueil</a>
+        <a href="trips.html">Trajets</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENU  -->
+  <main class="hero hero-contact">
+    <div class="hero-inner">
+      <h1 class="hero-title">Nous contacter</h1>
+      <p class="hero-subtitle">Une question ? Écris-nous, on répond rapidement 🙂</p>
+
+      <section class="contact-card">
+        <form class="contact-form contact-form-ecoride" id="contactForm">
+          <div class="field">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="field">
+  <label for="message">Message</label>
+  <textarea id="message" name="message" maxlength="800" required></textarea>
+  <div class="char-counter">
+    <span id="charCount">0</span>/800
+  </div>
+</div>
+
+<button type="submit" class="btn-primary">Envoyer</button>
+
+<div id="contactMsg" class="form-msg" aria-live="polite"></div>
+
+        </form>
+
+        <div class="contact-info">
+          <div>📧 contact@ecoride.fr</div>
+          <div>📍 France</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+</body>
+</html>

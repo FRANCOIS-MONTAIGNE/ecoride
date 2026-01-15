@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Proposer un trajet — EcoRide</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/app.js"></script>
+    <script defer src="assets/admin.js"></script>
+  </head> login,
+  <body>
+    <header class="nav enhanced-nav">
+      <div class="nav-content">
+        <a class="logo" href="index.html" aria-label="Accueil EcoRide">
+          <img src="assets/image/logoEcoRide.png" alt="Logo EcoRide" />
+        </a>
+
+        <nav class="menu">
+          <a href="index.html">Accueil</a>
+          <a href="trips.html">Trajets</a>
+          <a href="profile.html" id="profileLink">Mon profil</a>
+          <a href="admin.html" id="adminLink" style="display:none">Admin</a>
+          <a href="login.html" id="loginLink">Connexion</a>
+          <a href="#" id="logoutLink">Déconnexion</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container create-trip">
+      <h1>Proposer un trajet</h1>
+      <p class="create-trip-subtitle">
+        Décrivez votre trajet pour aider les covoitureurs à savoir s’il leur convient.
+      </p>
+
+      <!-- Stepper 1–2–3 -->
+      <div class="stepper" aria-hidden="true">
+        <div class="stepper-track"></div>
+
+        <div class="stepper-step step-1 active">
+          <span class="stepper-index">1</span>
+          <span class="stepper-label">Trajet</span>
+        </div>
+
+        <div class="stepper-step step-2">
+          <span class="stepper-index">2</span>
+          <span class="stepper-label">Conducteur & véhicule</span>
+        </div>
+
+        <div class="stepper-step step-3">
+          <span class="stepper-index">3</span>
+          <span class="stepper-label">Ambiance & préférences</span>
+        </div>
+      </div>
+
+      <form id="createTripForm" class="card form two">
+        <!-- --------- SECTION 1 : TRAJET --------- -->
+        <h2 class="section-title">Trajet</h2>
+
+        <div class="field icon-city">
+          <label for="origin_city">Ville de départ</label>
+          <input id="origin_city" name="origin_city" placeholder="Ville de départ" required />
+        </div>
+
+        <div class="field icon-city">
+          <label for="dest_city">Ville d’arrivée</label>
+          <input id="dest_city" name="dest_city" placeholder="Ville d'arrivée" required />
+        </div>
+
+        <div class="field icon-datetime">
+          <label for="departure">Date et heure de départ</label>
+          <input id="departure" type="datetime-local" name="departure" required />
+        </div>
+
+        <div class="field">
+          <label for="duration">Durée du voyage (minutes)</label>
+          <input id="duration" type="number" name="duration" min="0" placeholder="Ex : 120" />
+        </div>
+
+        <div class="field">
+          <label for="seats">Nombre de places proposées</label>
+          <input
+            id="seats"
+            type="number"
+            name="seats"
+            min="1"
+            max="6"
+            placeholder="Places (1–6)"
+            required
+          />
+        </div>
+
+        <div class="field icon-price">
+          <label for="price">Prix par passager (€)</label>
+          <input
+            id="price"
+            type="number"
+            name="price"
+            step="0.5"
+            min="0"
+            placeholder="Prix (€)"
+            required
+          />
+        </div>
+
+        <div class="field icon-note full-line">
+          <label for="note">Infos complémentaires (optionnel)</label>
+          <textarea
+            id="note"
+            name="note"
+            placeholder="Point de rendez-vous, pauses prévues, bagages, etc."
+          ></textarea>
+        </div>
+
+        <!-- --------- SECTION 2 : CONDUCTEUR & VÉHICULE --------- -->
+        <h2 class="section-title">Conducteur & véhicule</h2>
+
+        <fieldset class="options role-selector">
+          <legend>Je suis</legend>
+
+          <label class="checkbox">
+            <input type="radio" name="role" value="driver" checked />
+            <span>Conducteur</span>
+          </label>
+
+          <label class="checkbox">
+            <input type="radio" name="role" value="passenger" />
+            <span>Passager</span>
+          </label>
+        </fieldset>
+
+        <div class="field icon-car span-2">
+          <label for="car">Modèle / marque du véhicule</label>
+          <input id="car" name="car" placeholder="Ex : Peugeot 208, Tesla Model 3…" />
+        </div>
+
+        <div class="field">
+          <label for="energy">Énergie utilisée</label>
+          <select id="energy" name="energy">
+            <option value="">— Sélectionner —</option>
+            <option value="essence">Essence</option>
+            <option value="diesel">Diesel</option>
+            <option value="hybride">Hybride</option>
+            <option value="electrique">Électrique</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="plate">Plaque d’immatriculation</label>
+          <input id="plate" name="plate" placeholder="Ex : AB-123-CD" />
+        </div>
+
+        <label class="checkbox full-line checkbox-eco">
+          <input type="checkbox" name="eco" />
+          Voyage écologique (conduite douce / véhicule électrique)
+        </label>
+
+        <!-- --------- SECTION 3 : PRÉFÉRENCES --------- -->
+        <h2 class="section-title">Ambiance & préférences du conducteur</h2>
+
+        <fieldset class="options full-line">
+          <legend>Ambiance à bord</legend>
+
+          <label class="checkbox">
+            <input type="checkbox" name="smoker" />
+            Fumeur accepté
+          </label>
+
+          <label class="checkbox">
+            <input type="checkbox" name="music" />
+            Musique pendant le trajet
+          </label>
+
+          <label class="checkbox">
+            <input type="checkbox" name="pets" />
+            Animaux acceptés
+          </label>
+
+          <label class="checkbox">
+            <input type="checkbox" name="quiet" />
+            Trajet calme / silencieux
+          </label>
+        </fieldset>
+
+        <!-- Bouton -->
+        <button type="submit" class="full-line">Publier le trajet</button>
+        <p id="createMsg" class="msg full-line"></p>
+
+        <!-- Récapitulatif live -->
+        <section id="tripRecap" class="recap-card full-line" aria-live="polite">
+          <h3>Récapitulatif du trajet</h3>
+
+          <p class="recap-line">
+            <span class="recap-label">Itinéraire :</span>
+            <span id="recapRoute">À compléter</span>
+          </p>
+
+          <p class="recap-line">
+            <span class="recap-label">Date / durée :</span>
+            <span id="recapDate">—</span>
+          </p>
+
+          <p class="recap-line">
+            <span class="recap-label">Places & prix :</span>
+            <span id="recapSeatsPrice">—</span>
+          </p>
+
+          <p class="recap-line">
+            <span class="recap-label">Ambiance :</span>
+            <span id="recapOptions">—</span>
+          </p>
+        </section>
+      </form>
+    </main>
+
+    <footer>
+      <p>Contact : hello@ecoride.local</p>
+    </footer>
+  </body>
+</html>

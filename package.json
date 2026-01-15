@@ -1,0 +1,38 @@
+{
+  "name": "ecoride",
+  "version": "1.0.0",
+  "description": "Auteur : FRANCOIS MONTAIGNE Florence",
+  "main": "index.js",
+  "type": "commonjs",
+
+  "scripts": {
+    "format": "prettier . --write",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FRANCOIS-MONTAIGNE/ecoride.git"
+  },
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+
+  "bugs": {
+    "url": "https://github.com/FRANCOIS-MONTAIGNE/ecoride/issues"
+  },
+
+  "homepage": "https://github.com/FRANCOIS-MONTAIGNE/ecoride#readme",
+
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "prettier": "^3.7.4"
+  }
+}

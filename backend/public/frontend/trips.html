@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Trajets — EcoRide</title>
+    <meta
+      name="description"
+      content="Recherchez des covoiturages : saisissez votre ville de départ, d’arrivée et une date pour trouver un trajet EcoRide."
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <!-- IMPORTANT : defer pour que le JS ait accès au DOM -->
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body>
+    <header class="nav enhanced-nav">
+      <div class="nav-content">
+        <a class="logo" href="index.html" aria-label="Accueil EcoRide">
+          <img src="assets/image/logoEcoRide.png" alt="Logo EcoRide" />
+        </a>
+
+        <nav class="menu">
+  <a href="index.html">Accueil</a>
+  <a href="trips.html">Trajets</a>
+  <a href="profile.html" id="profileLink">Mon profil</a>   <!-- 👈 IMPORTANT -->
+  <a href="admin.html" id="adminLink" style="display:none">Admin</a>
+  <a href="login.html" id="loginLink">Connexion</a>
+  <a href="#" id="logoutLink">Déconnexion</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+      </div>
+    </header>
+
+    <main class="container create-trip">
+      <h1>Covoiturages</h1>
+
+      <div class="covoiturage-row">
+        <div class="col-left">
+          <img class="mock" src="assets/image/image01.png" alt="Illustration d’un covoiturage" />
+        </div>
+
+        <div class="col-right">
+          <!-- Formulaire de filtre -->
+          <form
+            id="filterForm"
+            class="search small"
+            role="search"
+            aria-label="Filtrer les covoiturages"
+          >
+            <div class="field">
+              <label class="sr-only" for="trips_origin_city">Ville de départ</label>
+              <input
+                id="trips_origin_city"
+                name="origin_city"
+                placeholder="Départ"
+                autocomplete="address-level2"
+              />
+            </div>
+
+            <div class="field">
+              <label class="sr-only" for="trips_dest_city">Ville d’arrivée</label>
+              <input
+                id="trips_dest_city"
+                name="dest_city"
+                placeholder="Arrivée"
+                autocomplete="address-level2"
+              />
+            </div>
+
+            <div class="field">
+              <label class="sr-only" for="trips_date">Date</label>
+              <input id="trips_date" type="date" name="date" />
+            </div>
+
+            <!-- OPTIONS : fumeur, animaux, musique, trajet tranquille -->
+            <fieldset class="options">
+              <legend>Options du trajet</legend>
+
+              <label>
+                <input type="checkbox" name="smoker" value="1" />
+                Fumeur accepté
+              </label>
+
+              <label>
+                <input type="checkbox" name="pets" value="1" />
+                Animaux acceptés
+              </label>
+
+              <label>
+                <input type="checkbox" name="music" value="1" />
+                Musique pendant le trajet
+              </label>
+
+              <label>
+                <input type="checkbox" name="quiet" value="1" />
+                Trajet calme / silencieux
+              </label>
+            </fieldset>
+
+            <button type="submit">Filtrer</button>
+            <button type="reset" class="secondary">Effacer</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Liste des trajets (mise à jour par JS) -->
+      <section id="tripsList" class="grid" aria-live="polite" aria-busy="false"></section>
+      <p id="tripsMessage" class="msg info"></p>
+
+      <!-- Gabarit de carte trajet pour app.js -->
+      <template id="tripCardTemplate">
+        <article class="trip-card">
+          <header>
+            <h2 class="route"><span class="from"></span> → <span class="to"></span></h2>
+            <time class="date" datetime=""></time>
+            <span class="eco-badge"></span>
+          </header>
+
+          <p class="driver">
+            Conducteur : <span class="name"></span> • <span class="rating" aria-label="Note"></span>
+          </p>
+
+          <p class="passengers">Passagers : <span class="passenger-list"></span></p>
+
+          <p class="seats-line">
+            Places disponibles :
+            <span class="seats-available"></span>
+            /
+            <span class="seats-total"></span>
+          </p>
+
+          <p class="car-line">
+            Véhicule : <span class="car-name"></span>
+            <span class="car-plate"></span>
+          </p>
+
+          <p class="price" aria-label="Prix"></p>
+
+          <p class="trip-options" aria-label="Options du trajet">
+            Options :
+            <span class="opt-smoker"></span>
+            <span class="opt-pets"></span>
+            <span class="opt-music"></span>
+            <span class="opt-quiet"></span>
+          </p>
+
+          <div class="actions">
+            <!-- Bouton utilisé par app.js pour réserver / annuler réservation -->
+            <button type="button" class="btn primary book">Réserver</button>
+
+            <!-- bouton détail (modale) -->
+            <button type="button" class="btn detail">Détail</button>
+
+            <!-- pour les trajets où je suis conducteur -->
+            <button type="button" class="btn secondary start-trip-btn" style="display: none">
+              Démarrer
+            </button>
+            <button type="button" class="btn secondary finish-trip-btn" style="display: none">
+              Arrivée à destination
+            </button>
+            <button type="button" class="btn danger cancel-trip-btn" style="display: none">
+              Annuler
+            </button>
+
+            <!-- pour les trajets où je suis passager -->
+            <button type="button" class="btn secondary confirm-ok-btn" style="display: none">
+              Tout s'est bien passé
+            </button>
+            <button type="button" class="btn danger confirm-issue-btn" style="display: none">
+              Signaler un problème
+            </button>
+            <button type="button" class="btn danger cancel-booking-btn" style="display: none">
+              Annuler ma réservation
+            </button>
+          </div>
+        </article>
+      </template>
+
+      <!-- Fenêtre de détail d'un trajet -->
+      <div id="tripDetailModal" class="modal">
+        <div class="modal-backdrop"></div>
+
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="tripDetailTitle">
+          <button class="modal-close" type="button" aria-label="Fermer">✕</button>
+          <div id="tripDetailContent"></div>
+        </div>
+      </div>
+
+      <noscript>
+        <p>Activez JavaScript pour voir les trajets disponibles et utiliser les filtres.</p>
+      </noscript>
+    </main>
+
+    <footer>
+      <p>Contact : hello@ecoride.local</p>
+    </footer>
+  </body>
+</html>

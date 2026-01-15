@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>EcoRide — Modération</title>
+  <link rel="stylesheet" href="assets/admin.css" />
+  <script defer src="assets/app.js"></script>
+  <script defer src="assets/moderation.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <header class="nav enhanced-nav">
+    <div class="nav-content">
+      <div class="logo">
+        <img src="assets/image/logoEcoRide.png" alt="Logo EcoRide" />
+      </div>
+
+      <nav class="menu">
+        <a href="index.html">Accueil</a>
+        <a href="trips.html">Trajets</a>
+        <a href="profile.html" id="profileLink">Mon profil</a>
+        <a href="login.html" id="loginLink">Connexion</a>
+        <a href="#" id="logoutLink">Déconnexion</a>
+        <a href="admin.html" id="adminLink">Admin</a>
+        <a href="moderation.html" id="moderationLink">Modération</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-header">
+      <h1>Modération des avis</h1>
+      <p>Accessible aux employés et à l’administrateur.</p>
+
+      <p>
+        <strong>Connecté :</strong>
+        <span id="modUserEmail">Non connecté</span>
+      </p>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <label>
+          Filtre :
+          <select id="statusFilter">
+            <option value="pending">En attente</option>
+            <option value="ok">Validés</option>
+            <option value="issue">Rejetés / signalés</option>
+          </select>
+        </label>
+        <button type="button" id="btnRefresh">Rafraîchir</button>
+        <span id="modMsg"></span>
+      </div>
+    </section>
+
+    <!-- Section Gestion des crédits -->
+    <section id="creditsSection" class="admin-card" style="margin-top:24px;">
+      <div class="card-header">
+        <h2>Gestion des crédits</h2>
+        <p>Ajouter ou retirer des crédits (admin / employé).</p>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+        <label>
+          User ID
+          <input id="creditUserId" type="number" min="1" />
+        </label>
+
+        <label>
+          Montant (+ / -)
+          <input id="creditAmount" type="number" step="0.01" />
+        </label>
+
+        <label style="min-width:280px;">
+          Raison
+          <input id="creditNote" type="text" placeholder="ex: remboursement, geste commercial…" />
+        </label>
+
+        <button type="button" id="btnAdjustCredits">Valider</button>
+        <span id="creditMsg"></span>
+      </div>
+
+      <!-- Tableau historique des crédits -->
+      <div style="margin-top:16px;">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <button type="button" id="btnRefreshCredits">Rafraîchir crédits</button>
+          <span id="creditTableMsg"></span>
+        </div>
+
+        <div class="table-wrapper" style="margin-top:10px;">
+          <table id="creditsTable" class="stats-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Montant</th>
+                <th>Raison</th>
+                <th>Par</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="6">Aucun mouvement.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-card admin-table-card" style="margin-top: 24px;">
+      <div class="card-header">
+        <h2>Avis</h2>
+        <p>Valider ou rejeter les avis.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table id="feedbacksTable" class="stats-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Trajet</th>
+              <th>Auteur</th>
+              <th>Email</th>
+              <th>Commentaire</th>
+              <th>Statut</th>
+              <th>Créé le</th>
+              <th>Modéré par</th>
+              <th>Modéré le</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="10">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2025 EcoRide — Modération</footer>
+</body>
+</html>

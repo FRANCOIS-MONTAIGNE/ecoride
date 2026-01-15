@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connexion — EcoRide</title>
+ <link rel="stylesheet" href="/ecoride/backend/public/frontend/assets/style.css" />
+<script defer src="/ecoride/backend/public/frontend/assets/app.js"></script>
+
+</head>
+<body>
+<header class="nav enhanced-nav">
+  <div class="nav-content">
+    <a class="logo" href="index.html" aria-label="Accueil EcoRide">
+      <img src="assets/image/logoEcoRide.png" alt="Logo EcoRide" />
+    </a>
+
+       <nav class="menu">
+  <a href="index.html">Accueil</a>
+  <a href="trips.html">Trajets</a>
+  <a href="profile.html" id="profileLink">Mon profil</a>  
+  <a href="admin.html" id="adminLink" style="display:none">Admin</a>
+  <a href="login.html" id="loginLink">Connexion</a>
+  <a href="#" id="logoutLink">Déconnexion</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+  </div>
+</header>
+
+
+<main class="auth">
+  <h1 id="formTitle">Connexion</h1>
+
+  <section class="card form">
+    <!-- Formulaire de connexion -->
+    <form id="loginForm">
+      <div class="field">
+        <label for="login_email">Email</label>
+        <input id="login_email" type="email" name="email" required />
+      </div>
+
+      <div class="field">
+        <label for="login_password">Mot de passe</label>
+        <input id="login_password" type="password" name="password" required />
+      </div>
+
+      <button type="submit">Se connecter</button>
+      <p id="loginMsg" class="msg"></p>
+
+      <p class="alt-link">
+        Pas encore de compte ?
+        <a href="#" id="showSignup">Créer un compte</a>
+      </p>
+    </form>
+
+    <!-- Formulaire d’inscription (caché par défaut) -->
+    <form id="signupForm" style="display: none; flex-direction: column; gap: 12px;">
+      <div class="field">
+        <label for="signup_name">Nom</label>
+        <input id="signup_name" type="text" name="name" required />
+      </div>
+
+      <div class="field">
+        <label for="signup_email">Email</label>
+        <input id="signup_email" type="email" name="email" required />
+      </div>
+
+      <div class="field">
+        <label for="signup_password">Mot de passe</label>
+        <input id="signup_password" type="password" name="password" required />
+      </div>
+
+      <div class="field">
+        <label for="signup_password_confirm">Confirmer le mot de passe</label>
+        <input id="signup_password_confirm" type="password" name="password_confirm" required />
+      </div>
+
+      <button type="submit">Créer mon compte</button>
+      <p id="signupMsg" class="msg"></p>
+
+      <p class="alt-link">
+        Déjà inscrit ?
+        <a href="#" id="showLogin">Se connecter</a>
+      </p>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>Contact : hello@ecoride.local</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EcoRide — Administration</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/admin.css" />
+
+    <script defer src="assets/app.js"></script>
+    <script defer src="assets/admin.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <header class="nav enhanced-nav">
+      <div class="nav-content">
+        <div class="logo">
+          <img src="assets/image/logoEcoRide.png" alt="Logo EcoRide" />
+        </div>
+
+        <nav class="menu">
+          <a href="index.html">Accueil</a>
+          <a href="trips.html">Trajets</a>
+          <a href="profile.html" id="profileLink">Mon profil</a>
+          <a href="login.html" id="loginLink">Connexion</a>
+          <a href="#" id="logoutLink">Déconnexion</a>
+          <a href="admin.html" id="adminLink">Admin</a>
+          <a href="admin_messages.html" id="adminMessagesLink">Messages</a>
+          <a href="moderation.html" id="moderationLink">Modération</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL ADMIN -->
+    <main class="admin-main">
+      <!--En-tête admin -->
+      <section class="admin-header">
+        <h1>Tableau de bord administrateur</h1>
+        <p>Gestion des statistiques des trajets et des crédits EcoRide.</p>
+
+        <p>
+          <strong>Admin connecté :</strong>
+          <span id="adminEmail">Non connecté</span>
+        </p>
+
+        <button type="button" id="logoutBtn">Déconnexion</button>
+      </section>
+
+      <!-- KPIs -->
+      <section class="admin-kpis">
+        <article class="admin-card kpi-card">
+          <div class="kpi-label">Nombre de trajets</div>
+          <div class="kpi-value" id="statTotalTrips">0</div>
+          <div class="kpi-sub">Trajets réalisés sur la période récente.</div>
+        </article>
+
+        <article class="admin-card kpi-card">
+          <div class="kpi-label">Crédits gagnés</div>
+          <div class="kpi-value" id="statTotalCredits">0</div>
+          <div class="kpi-sub">Total des crédits accumulés.</div>
+        </article>
+      </section>
+
+      <!-- Créer employé -->
+      <section class="admin-card" style="margin-top:24px;">
+        <div class="card-header">
+          <h2>Créer un compte employé</h2>
+          <p>Accessible uniquement pour un admin connecté.</p>
+        </div>
+
+        <div style="display:grid; gap:10px; max-width:420px;">
+          <input id="empName" placeholder="Nom complet (ex: Marie Dupont)" />
+          <input id="empEmail" placeholder="Email (ex: marie@ecoride.fr)" />
+          <input id="empPassword" type="password" placeholder="Mot de passe (≥ 6 caractères)" />
+          <button id="btnCreateEmployee" type="button">Créer l'employé</button>
+          <div id="createEmployeeMsg"></div>
+        </div>
+      </section>
+
+      <!-- Utilisateurs -->
+      <section class="admin-card admin-table-card" style="margin-top: 24px;">
+        <div class="card-header">
+          <h2>Utilisateurs</h2>
+          <p>Liste des comptes (admin / employee / user).</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="usersTable" class="stats-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Note</th>
+                <th>Créé le</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="6">Chargement…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+     <!-- Gestion crédits -->
+<section class="admin-card" id="creditsSection" style="margin-top:24px;">
+  <div class="card-header">
+    <h2>Gestion des crédits</h2>
+    <p>Ajouter ou retirer des crédits (admin).</p>
+  </div>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+    <label>
+      User ID
+      <input id="creditUserId" type="number" min="1" />
+    </label>
+
+    <label>
+      Montant (+ / -)
+      <input id="creditAmount" type="number" step="0.01" />
+    </label>
+
+    <label style="min-width:280px;">
+      Raison
+      <input id="creditNote" type="text" placeholder="ex: remboursement, geste commercial…" />
+    </label>
+
+    <button type="button" id="btnAdjustCredits">Valider</button>
+    <span id="creditMsg"></span>
+  </div>
+
+  <!-- Tableau des crédits -->
+  <div style="margin-top:16px;">
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <button type="button" id="btnRefreshCredits">Rafraîchir crédits</button>
+      <span id="creditTableMsg"></span>
+    </div>
+
+    <div class="table-wrapper" style="margin-top:10px;">
+      <table id="creditsTable" class="stats-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Montant</th>
+            <th>Raison</th>
+            <th>Par</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="6">Chargement…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="admin-card admin-table-card" style="margin-top:24px;">
+  <div class="card-header">
+    <h2>Audit des crédits</h2>
+    <p>Vérification de cohérence entre le solde stocké et le solde calculé.</p>
+  </div>
+
+  <p id="creditAuditMsg" style="margin: 8px 0;"></p>
+
+  <div class="table-wrapper">
+    <table id="creditAuditTable" class="stats-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Crédits (DB)</th>
+          <th>Crédits (calculés)</th>
+          <th>Écart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7">Chargement…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+      <!-- Grille : graphiques + tableau -->
+      <section class="admin-grid">
+        <article class="admin-card admin-card-chart">
+          <div class="card-header">
+            <h2>Trajets par jour</h2>
+            <p>Nombre de trajets effectués chaque jour (7 derniers jours).</p>
+          </div>
+          <canvas id="chartTrips"></canvas>
+        </article>
+
+        <article class="admin-card admin-card-chart">
+          <div class="card-header">
+            <h2>Crédits gagnés par jour</h2>
+            <p>Crédits attribués aux utilisateurs par jour.</p>
+          </div>
+          <canvas id="chartCredits"></canvas>
+        </article>
+
+        <article class="admin-card admin-table-card">
+          <div class="card-header">
+            <h2>Détail des trajets</h2>
+            <p>Répartition des trajets par jour.</p>
+          </div>
+
+          <div class="table-wrapper">
+            <table id="tripsTable" class="stats-table">
+              <thead>
+                <tr>
+                  <th>Jour</th>
+                  <th>Nombre de trajets</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="2">Chargement des données…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>&copy; 2025 EcoRide — Tableau de bord administrateur</footer>
+  </body>
+</html>

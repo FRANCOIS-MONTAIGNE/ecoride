@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mes covoiturages — EcoRide</title>
+  <meta name="description" content="Consultez les trajets que vous avez proposés et ceux que vous avez réservés sur EcoRide." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body class="create-trip">
+<header class="nav enhanced-nav">
+  <div class="nav-content">
+    <a class="logo" href="index.html" aria-label="Accueil EcoRide">
+      <img src="assets/image/logoEcoRide.png" alt="Logo EcoRide" />
+    </a>
+
+      <nav class="menu">
+  <a href="index.html">Accueil</a>
+  <a href="trips.html">Trajets</a>
+  <a href="profile.html" id="profileLink">Mon profil</a>   
+  <a href="admin.html" id="adminLink" style="display:none">Admin</a>
+  <a href="login.html" id="loginLink">Connexion</a>
+  <a href="#" id="logoutLink">Déconnexion</a>
+  <a href="contact.html">Contact</a>
+</nav>
+  </div>
+</header>
+
+
+<main class="container my-trips">
+  <h1>Mes covoiturages</h1>
+
+  <!-- barre de progression décorative -->
+  <div class="card create-progress">
+    <div class="step">
+      <span class="step-badge">1</span>
+      Trajets proposés
+    </div>
+    <div class="step">
+      <span class="step-badge">2</span>
+      Réservations
+    </div>
+    <div class="step">
+      <span class="step-badge">3</span>
+      Annulation / gestion
+    </div>
+  </div>
+
+  <!-- Section conducteur -->
+  <section class="card">
+    <h2>Trajets où je suis conducteur</h2>
+    <div id="myTripsDriverList" class="grid" aria-live="polite" aria-busy="false"></div>
+    <p id="myTripsDriverMsg" class="msg"></p>
+  </section>
+
+  <!-- Section passager -->
+  <section class="card">
+    <h2>Trajets réservés en tant que passager</h2>
+    <div id="myTripsPassengerList" class="grid" aria-live="polite" aria-busy="false"></div>
+    <p id="myTripsPassengerMsg" class="msg"></p>
+  </section>
+
+  <!-- Modèle de carte réutilisé pour les 2 listes -->
+  <template id="myTripCardTemplate">
+    <article class="trip-card mytrip-card">
+      <header class="mytrip-header">
+        <div class="mytrip-route">
+          <span class="from"></span>
+          <span class="arrow">→</span>
+          <span class="to"></span>
+        </div>
+        <div class="mytrip-badges">
+          <span class="mytrip-role-badge"></span>
+          <span class="mytrip-status-badge"></span>
+        </div>
+      </header>
+
+      <div class="mytrip-body">
+        <div class="mytrip-row">
+          <span class="mytrip-icon">📅</span>
+          <time class="date"></time>
+        </div>
+        <div class="mytrip-row">
+          <span class="mytrip-icon">🚗</span>
+          <span class="driver"></span>
+        </div>
+        <div class="mytrip-row">
+          <span class="mytrip-icon">💺</span>
+          <span class="extra"></span>
+        </div>
+      </div>
+
+      <footer class="mytrip-footer">
+        <div class="mytrip-price">
+          <span class="price"></span>
+        </div>
+        <div class="mytrip-actions">
+          <button class="btn detail" type="button">Détail</button>
+          <button class="btn secondary cancel-trip-btn" type="button">Annuler le trajet</button>
+          <button class="btn secondary cancel-booking-btn" type="button">Annuler ma réservation</button>
+        </div>
+      </footer>
+    </article>
+  </template>
+
+  <!-- Fenêtre de détail d'un trajet (même structure que sur trips.html) -->
+  <div id="tripDetailModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="tripDetailTitle">
+      <button class="modal-close" type="button" aria-label="Fermer">✕</button>
+      <div id="tripDetailContent"></div>
+    </div>
+  </div>
+
+  <noscript>
+    <p>Activez JavaScript pour afficher vos trajets et les détails.</p>
+  </noscript>
+</main>
+
+<footer>
+  <p>Contact : hello@ecoride.local</p>
+</footer>
+</body>
+</html>

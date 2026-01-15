@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mon profil – EcoRide</title>
+  <link rel="stylesheet" href="assets/admin.css" />
+  <script defer src="assets/app.js"></script>
+  <script defer src="assets/profile.js"></script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="nav enhanced-nav">
+    <div class="nav-content">
+      <div class="logo">
+        <img src="assets/image/logoEcoRide.png" alt="EcoRide">
+      </div>
+      <nav class="menu">
+  <a href="index.html">Accueil</a>
+  <a href="trips.html">Trajets</a>
+  <a href="profile.html" id="profileLink">Mon profil</a>   <!-- 👈 IMPORTANT -->
+  <a href="admin.html" id="adminLink" style="display:none">Admin</a>
+  <a href="login.html" id="loginLink">Connexion</a>
+  <a href="#" id="logoutLink">Déconnexion</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+    </div>
+  </header>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="admin-main">
+    <!-- Titre et description -->
+    <section class="admin-header">
+      <h1>Mon profil</h1>
+      <p>Informations associées à votre compte EcoRide.</p>
+    </section>
+
+    <!-- Carte infos compte -->
+    <section class="admin-card">
+      <h2>Informations du compte</h2>
+
+      <p><span class="profile-label">Nom :</span>
+         <span id="profileFullName">—</span>
+      </p>
+      <p><span class="profile-label">Email :</span>
+         <span id="profileEmail">—</span>
+      </p>
+      <p><span class="profile-label">Rôle :</span>
+         <span id="profileRole">—</span>
+      </p>
+      <p><span class="profile-label">Note :</span>
+         <span id="profileRating">—</span>
+      </p>
+      <p><span class="profile-label">Membre depuis :</span>
+         <span id="profileCreatedAt">—</span>
+      </p>
+    </section>
+
+    <section class="profile-card" id="messagesSection" style="margin-top:24px;">
+  <div class="card-header">
+    <h2>Messagerie</h2>
+    <p>Disponible uniquement pour les réservations acceptées.</p>
+  </div>
+
+  <div class="messages-layout">
+    <!-- Liste conversations -->
+    <aside class="messages-list">
+      <div class="messages-list-header">
+        <strong>Conversations</strong>
+        <button type="button" id="btnRefreshConvs">Rafraîchir</button>
+      </div>
+      <div id="convList" class="conv-list"></div>
+      <div id="convListMsg" class="muted"></div>
+    </aside>
+
+    <!-- Chat -->
+    <div class="messages-chat">
+      <div class="chat-header">
+        <strong id="chatTitle">Sélectionne une conversation</strong>
+        <span id="chatSub" class="muted"></span>
+      </div>
+
+      <div id="chatBox" class="chat-box"></div>
+
+      <form id="chatForm" class="chat-form">
+        <input id="chatInput" type="text" placeholder="Écris ton message…" autocomplete="off" />
+        <button type="submit">Envoyer</button>
+      </form>
+
+      <div id="chatMsg" class="muted"></div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Carte session -->
+    <section class="admin-card">
+      <h2>Session</h2>
+      <p>Vous êtes actuellement connecté(e) à EcoRide.</p>
+      <button type="button" id="profileLogoutBtn">Déconnexion</button>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 EcoRide
+  </footer>
+</body>
+</html>
